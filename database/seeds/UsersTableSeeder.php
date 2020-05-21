@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'username'  =>    'BrayanDaga',
             'email'     =>   'bm_vd_1605@hotmail.com',
             'password'  =>   Hash::make('brayanvilchez'),
-            'apitoken' => Str::random(60)
+            'apitoken'  =>    Str::random(60)
         ]);
     }
 }
