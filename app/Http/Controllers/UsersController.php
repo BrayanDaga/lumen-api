@@ -19,22 +19,21 @@ class UsersController extends Controller
     }
     public function index()
     {
-        return response()->json(User::all());
+        return User::all();
     }
 
     public function show($id)
     {
-        return response()->json(User::find($id));
+        return User::find($id);
     }
 
     public function login(Request $request)
     {
-        if($request->isJson()){
             try {
-                $data = $request->json()->all();
-                $user = User::where('username',$data['username'])->first();
-                if($user && Hash::check($data['password'], $user->password)){
-                    return response()->json($user,200);
+                //$data = $request->all();
+                $user = User::where('username',$request['username'])->first();
+                if($user && Hash::check($request['password'], $user->password)){
+                    return $user;
                 }
                 else{
                     return response()->json(['error'=>'No content'],406);
@@ -42,26 +41,27 @@ class UsersController extends Controller
             } catch (ModelNotFoundException $e) {
                 return response()->json(['error'=>'No content'],406);
             }
-            return response()->json(['error'=>'Unauthorized'],401,[]);
-        }
+
     }
 
 
     public function store(Request $request)
     {
-        if($request->isJson()){
-            $data = $request->json()->all();
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+            ]);
+            //$data = $request->json()->all();
             $user = User::create([
-                'name' => $data['name'],
-                'username' => $data['username'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
+                'name' => $request['name'],
+                'username' => $request['username'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
                 'apitoken' => Str::random(60)
 
             ]);
-            return response()->json([$user], 201);
-        }
-        return response()->json(['error'=>'Unauthorized'],401,[]);
+            return $user;
+
     }
 
 
