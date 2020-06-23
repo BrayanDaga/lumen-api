@@ -33,7 +33,7 @@ class UsersController extends Controller
                 //$data = $request->all();
                 $user = User::where('username',$request['username'])->first();
                 if($user && Hash::check($request['password'], $user->password)){
-                    return $user;
+                    return $user->apitoken;
                 }
                 else{
                     return response()->json(['error'=>'No content'],406);
