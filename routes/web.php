@@ -17,14 +17,15 @@ $router->get('/', function () use ($router) {
 
 $router->post('/api/login','UsersController@login');
 $router->post('/api/users','UsersController@store');
-/*
+
+
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('users','UsersController@index');
     $router->get('users/{id}','UsersController@show');
 });
-*/
-
+/*
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
     $router->get('users','UsersController@index');
     $router->get('users/{id}','UsersController@show');
 });
+*/
