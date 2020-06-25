@@ -31,7 +31,7 @@ class UsersController extends Controller
     {
             try {
                 //$data = $request->all();
-                $user = User::where('username',$request['username'])->first();
+                $user = User::where('email',$request['email'])->first();
                 if($user && Hash::check($request['password'], $user->password)){
                     return $user->apitoken;
                 }
@@ -54,7 +54,6 @@ class UsersController extends Controller
             //$data = $request->json()->all();
             $user = User::create([
                 'name' => $request['name'],
-                'username' => $request['username'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'apitoken' => Str::random(60)

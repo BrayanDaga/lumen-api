@@ -15,7 +15,6 @@ class UsersTableSeeder extends Seeder
     {
         App\User::create([
             'name'      =>   'Brayan Vilchez Daga',
-            'username'  =>    'BrayanDaga',
             'email'     =>   'bm_vd_1605@hotmail.com',
             'password'  =>   Hash::make('brayanvilchez'),
             'apitoken'  =>    Str::random(60)
